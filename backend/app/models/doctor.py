@@ -35,6 +35,18 @@ class Doctor(db.Model):
         back_populates="doctors"
     )
 
+    schedules = db.relationship(
+        "Schedule",
+        back_populates="doctor",
+        cascade="all, delete-orphan"
+    )
+
+    appointments = db.relationship(
+        "Appointment",
+        back_populates="doctor",
+        cascade="all, delete-orphan"
+    )
+
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
 

@@ -23,6 +23,15 @@ def create_app():
     from app.routes.auth import auth_bp
     from app.routes.doctors import doctors_bp
 
+    from app.routes.appointments import (
+        appointments_bp
+    )
+
+    app.register_blueprint(
+        appointments_bp,
+        url_prefix="/api/appointments"
+    )
+
     app.register_blueprint(
         auth_bp,
         url_prefix="/api/auth"

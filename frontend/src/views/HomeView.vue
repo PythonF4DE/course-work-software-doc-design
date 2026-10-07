@@ -5,10 +5,13 @@ import {
 } from "vue"
 
 import api from "../services/api.js"
+import { useAuthStore } from "../stores/auth.js"
 
 
 const doctors = ref([])
 const loading = ref(true)
+
+const authStore = useAuthStore()
 
 
 async function loadDoctors() {
@@ -56,26 +59,38 @@ onMounted(loadDoctors)
         </p>
 
         <div class="hero-actions">
+
           <RouterLink
+            v-if="!authStore.isAuthenticated"
             to="/register"
             class="button">
             Зареєструватися
           </RouterLink>
 
-          <a
-            href="#doctors"
+          <RouterLink
+            v-else
+            to="/dashboard"
+            class="button">
+            Мої записи
+          </RouterLink>
+
+          <RouterLink
+            to="/doctors"
             class="button button-secondary">
             Переглянути лікарів
-          </a>
+          </RouterLink>
+
         </div>
       </div>
     </div>
   </section>
 
+
   <section
     id="doctors"
     class="section">
     <div class="container">
+
       <div class="section-header">
         <div>
           <span class="eyebrow">
@@ -88,17 +103,20 @@ onMounted(loadDoctors)
         </div>
       </div>
 
+
       <div
         v-if="loading"
         class="empty-state">
         Завантаження...
       </div>
 
+
       <div
         v-else-if="doctors.length === 0"
         class="empty-state">
         Лікарів поки не додано.
       </div>
+
 
       <div
         v-else
@@ -107,10 +125,12 @@ onMounted(loadDoctors)
           v-for="doctor in doctors"
           :key="doctor.id"
           class="doctor-card">
+
           <div class="doctor-avatar">
             {{ doctor.first_name[0] }}
             {{ doctor.last_name[0] }}
           </div>
+
 
           <div>
             <h3>
@@ -126,14 +146,26 @@ onMounted(loadDoctors)
             <p>
               {{ doctor.description }}
             </p>
+
+            <RouterLink
+              :to="`/doctors/${doctor.id}/book`"
+              class="button button-small">
+              Записатися
+            </RouterLink>
           </div>
+
         </article>
       </div>
+
     </div>
   </section>
 
-  <section class="section section-muted">
+
+  <section
+    v-if="!authStore.isAuthenticated"
+    class="section section-muted">
     <div class="container">
+
       <span class="eyebrow">
         Як це працює
       </span>
@@ -142,31 +174,49 @@ onMounted(loadDoctors)
         Три прості кроки
       </h2>
 
+
       <div class="steps">
+
         <article class="step">
           <span>1</span>
-          <h3>Створіть профіль</h3>
+
+          <h3>
+            Створіть профіль
+          </h3>
+
           <p>
             Зареєструйтеся як пацієнт.
           </p>
         </article>
 
+
         <article class="step">
           <span>2</span>
-          <h3>Оберіть лікаря</h3>
+
+          <h3>
+            Оберіть лікаря
+          </h3>
+
           <p>
             Знайдіть потрібну спеціалізацію.
           </p>
         </article>
 
+
         <article class="step">
           <span>3</span>
-          <h3>Запишіться</h3>
+
+          <h3>
+            Запишіться
+          </h3>
+
           <p>
             Оберіть доступну дату та час.
           </p>
         </article>
+
       </div>
+
     </div>
   </section>
 </template>

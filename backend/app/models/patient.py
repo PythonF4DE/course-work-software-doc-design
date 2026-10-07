@@ -50,6 +50,12 @@ class Patient(db.Model):
         back_populates="patient"
     )
 
+    appointments = db.relationship(
+        "Appointment",
+        back_populates="patient",
+        cascade="all, delete-orphan"
+    )
+
     def get_full_name(self):
         parts = [
             self.last_name,

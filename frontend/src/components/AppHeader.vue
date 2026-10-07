@@ -23,6 +23,10 @@ function logout() {
         MedBook
       </RouterLink>
 
+      <RouterLink to="/doctors">
+        Лікарі
+      </RouterLink>
+
       <nav class="navigation">
         <RouterLink to="/">
           Головна

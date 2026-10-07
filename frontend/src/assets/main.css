@@ -457,3 +457,322 @@
       padding: 28px 22px;
     }
   }
+
+  .page-description {
+    max-width: 650px;
+  
+    color: #64748b;
+  
+    font-size: 18px;
+  }
+  
+  .filter-bar {
+    max-width: 400px;
+  
+    margin: 32px 0;
+  
+    display: flex;
+    flex-direction: column;
+  
+    gap: 8px;
+  }
+  
+  .filter-bar label {
+    font-weight: 600;
+  }
+  
+  .filter-bar select {
+    min-height: 46px;
+  
+    padding: 0 12px;
+  
+    background: white;
+  
+    border: 1px solid #cbd5e1;
+  
+    border-radius: 8px;
+  }
+  
+  .booking-layout {
+    display: grid;
+  
+    grid-template-columns:
+      320px 1fr;
+  
+    gap: 40px;
+  
+    align-items: start;
+  }
+  
+  .booking-doctor {
+    position: sticky;
+  
+    top: 100px;
+  }
+  
+  .booking-card {
+    padding: 36px;
+  
+    background: white;
+  
+    border: 1px solid #e5e7eb;
+  
+    border-radius: 16px;
+  }
+  
+  .booking-card h1 {
+    margin-top: 10px;
+  
+    font-size: 38px;
+  }
+  
+  .time-grid {
+    display: flex;
+  
+    flex-wrap: wrap;
+  
+    gap: 10px;
+  
+    margin-top: 8px;
+  }
+  
+  .time-slot {
+    min-width: 80px;
+  
+    padding: 10px 14px;
+  
+    color: #176b87;
+  
+    background: white;
+  
+    border: 1px solid #176b87;
+  
+    border-radius: 8px;
+  }
+  
+  .time-slot:hover {
+    background: #e7f4f8;
+  }
+  
+  .time-slot.selected {
+    color: white;
+  
+    background: #176b87;
+  }
+  
+  .form-group textarea {
+    width: 100%;
+  
+    padding: 12px 13px;
+  
+    resize: vertical;
+  
+    font: inherit;
+  
+    border: 1px solid #cbd5e1;
+  
+    border-radius: 8px;
+  
+    outline: none;
+  }
+  
+  .form-group textarea:focus {
+    border-color: #176b87;
+  
+    box-shadow:
+      0 0 0 3px
+      rgba(23, 107, 135, 0.12);
+  }
+  
+  .alert-success {
+    color: #166534;
+  
+    background: #f0fdf4;
+  
+    border: 1px solid #bbf7d0;
+  }
+  
+  
+  @media (max-width: 800px) {
+  
+    .booking-layout {
+      grid-template-columns: 1fr;
+    }
+  
+    .booking-doctor {
+      position: static;
+    }
+  }
+
+  .appointments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    gap: 20px;
+  
+    margin-bottom: 24px;
+  }
+  
+  .appointments-header h2 {
+    margin: 0;
+  }
+  
+  .appointment-list {
+    display: flex;
+    flex-direction: column;
+  
+    gap: 16px;
+  }
+  
+  .appointment-item {
+    padding: 20px;
+  
+    background: #f8fafc;
+  
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+  }
+  
+  .appointment-main {
+    display: flex;
+  
+    gap: 24px;
+  
+    align-items: flex-start;
+  }
+  
+  .appointment-date {
+    min-width: 145px;
+  
+    display: flex;
+    flex-direction: column;
+  
+    gap: 5px;
+  
+    color: #17212b;
+  }
+  
+  .appointment-date strong {
+    font-size: 16px;
+  }
+  
+  .appointment-date span {
+    color: #176b87;
+  
+    font-size: 22px;
+    font-weight: 700;
+  }
+  
+  .appointment-info {
+    flex: 1;
+  }
+  
+  .appointment-info h3 {
+    margin: 0 0 5px;
+  
+    font-size: 20px;
+  }
+  
+  .appointment-info p {
+    margin: 6px 0;
+  
+    color: #64748b;
+  }
+  
+  .appointment-info .specialization {
+    color: #176b87;
+  
+    font-weight: 600;
+  }
+  
+  .appointment-footer {
+    display: flex;
+  
+    justify-content: space-between;
+    align-items: center;
+  
+    gap: 15px;
+  
+    margin-top: 18px;
+    padding-top: 16px;
+  
+    border-top: 1px solid #e2e8f0;
+  }
+  
+  .appointment-status {
+    display: inline-flex;
+  
+    padding: 6px 12px;
+  
+    border-radius: 100px;
+  
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .status-scheduled {
+    color: #075985;
+  
+    background: #e0f2fe;
+  }
+  
+  .status-completed {
+    color: #166534;
+  
+    background: #dcfce7;
+  }
+  
+  .status-cancelled {
+    color: #991b1b;
+  
+    background: #fee2e2;
+  }
+  
+  .button-danger {
+    color: #b91c1c;
+  
+    background: white;
+  
+    border-color: #fecaca;
+  }
+  
+  .button-danger:hover {
+    color: white;
+  
+    background: #b91c1c;
+  
+    border-color: #b91c1c;
+  }
+  
+  .appointments-history {
+    margin-top: 30px;
+  }
+  
+  .appointment-finished {
+    opacity: 0.8;
+  }
+  
+  
+  @media (max-width: 720px) {
+  
+    .appointments-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  
+    .appointment-main {
+      flex-direction: column;
+  
+      gap: 12px;
+    }
+  
+    .appointment-date {
+      min-width: 0;
+    }
+  
+    .appointment-footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
