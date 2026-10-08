@@ -1,13 +1,19 @@
+
 import os
 
 from dotenv import load_dotenv
+from sqlalchemy.engine import URL
 
 
 load_dotenv()
 
 
 class Config:
-    SECRET_KEY = os.getenv("SECRET_KEY", "development-secret-key")
+    SECRET_KEY = os.getenv(
+        "SECRET_KEY",
+        "development-secret-key"
+    )
+
     JWT_SECRET_KEY = os.getenv(
         "JWT_SECRET_KEY",
         "development-jwt-secret-key"
@@ -19,10 +25,16 @@ class Config:
     DB_USER = os.getenv("DB_USER")
     DB_PASSWORD = os.getenv("DB_PASSWORD")
 
-    SQLALCHEMY_DATABASE_URI = (
-        f"postgresql+psycopg://"
-        f"{DB_USER}:{DB_PASSWORD}"
-        f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    SQLALCHEMY_DATABASE_URI = URL.create(
+        drivername="postgresql+psycopg",
+        username=DB_USER,
+        password=DB_PASSWORD,
+        host=DB_HOST,
+        port=int(DB_PORT),
+        database=DB_NAME,
+        query={
+            "sslmode": "require"
+        }
     )
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False

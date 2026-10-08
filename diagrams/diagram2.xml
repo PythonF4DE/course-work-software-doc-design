@@ -1,0 +1,799 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="MedBook Class Diagram">
+    <mxGraphModel
+      dx="1800"
+      dy="1200"
+      grid="1"
+      gridSize="10"
+      guides="1"
+      tooltips="1"
+      connect="1"
+      arrows="1"
+      fold="1"
+      page="1"
+      pageScale="1"
+      pageWidth="2200"
+      pageHeight="1600"
+      math="0"
+      shadow="0">
+
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- TITLE -->
+
+        <mxCell
+          id="title"
+          value="MedBook — UML діаграма класів"
+          style="text;html=1;fontSize=24;fontStyle=1;align=center;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="650"
+            y="20"
+            width="700"
+            height="40"
+            as="geometry"/>
+        </mxCell>
+
+        <!-- LEGEND -->
+
+        <mxCell
+          id="legendStrategy"
+          value="&lt;b&gt;&amp;lt;&amp;lt;Strategy&amp;gt;&amp;gt;&lt;/b&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="40"
+            y="20"
+            width="150"
+            height="40"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="legendObserver"
+          value="&lt;b&gt;&amp;lt;&amp;lt;Observer&amp;gt;&amp;gt;&lt;/b&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="200"
+            y="20"
+            width="150"
+            height="40"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="legendState"
+          value="&lt;b&gt;&amp;lt;&amp;lt;State&amp;gt;&amp;gt;&lt;/b&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="360"
+            y="20"
+            width="150"
+            height="40"
+            as="geometry"/>
+        </mxCell>
+
+
+        <!-- DOMAIN MODEL -->
+
+        <!-- USER -->
+
+        <mxCell
+          id="User"
+          value="&lt;b&gt;User&lt;/b&gt;&lt;hr/&gt;- id: Integer&lt;br/&gt;- email: String&lt;br/&gt;- password_hash: String&lt;br/&gt;- role: String&lt;br/&gt;- created_at: DateTime&lt;hr/&gt;+ set_password(password)&lt;br/&gt;+ check_password(password)&lt;br/&gt;+ to_dict()"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="80"
+            y="130"
+            width="260"
+            height="245"
+            as="geometry"/>
+        </mxCell>
+
+        <!-- PATIENT -->
+
+        <mxCell
+          id="Patient"
+          value="&lt;b&gt;Patient&lt;/b&gt;&lt;hr/&gt;- id: Integer&lt;br/&gt;- user_id: Integer&lt;br/&gt;- first_name: String&lt;br/&gt;- last_name: String&lt;br/&gt;- middle_name: String&lt;br/&gt;- phone: String&lt;br/&gt;- birth_date: Date&lt;br/&gt;- notification_method: String&lt;hr/&gt;+ get_full_name()&lt;br/&gt;+ to_dict()"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="80"
+            y="440"
+            width="280"
+            height="275"
+            as="geometry"/>
+        </mxCell>
+
+        <!-- DOCTOR -->
+
+        <mxCell
+          id="Doctor"
+          value="&lt;b&gt;Doctor&lt;/b&gt;&lt;hr/&gt;- id: Integer&lt;br/&gt;- user_id: Integer&lt;br/&gt;- first_name: String&lt;br/&gt;- last_name: String&lt;br/&gt;- description: Text&lt;br/&gt;- specialization_id: Integer&lt;hr/&gt;+ get_full_name()&lt;br/&gt;+ to_dict()"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="450"
+            y="130"
+            width="270"
+            height="240"
+            as="geometry"/>
+        </mxCell>
+
+        <!-- SPECIALIZATION -->
+
+        <mxCell
+          id="Specialization"
+          value="&lt;b&gt;Specialization&lt;/b&gt;&lt;hr/&gt;- id: Integer&lt;br/&gt;- name: String&lt;hr/&gt;+ to_dict()"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="800"
+            y="130"
+            width="230"
+            height="150"
+            as="geometry"/>
+        </mxCell>
+
+        <!-- SCHEDULE -->
+
+        <mxCell
+          id="Schedule"
+          value="&lt;b&gt;Schedule&lt;/b&gt;&lt;hr/&gt;- id: Integer&lt;br/&gt;- doctor_id: Integer&lt;br/&gt;- date: Date&lt;br/&gt;- start_time: Time&lt;br/&gt;- end_time: Time&lt;hr/&gt;+ to_dict()"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="800"
+            y="330"
+            width="240"
+            height="200"
+            as="geometry"/>
+        </mxCell>
+
+        <!-- APPOINTMENT -->
+
+        <mxCell
+          id="Appointment"
+          value="&lt;b&gt;Appointment&lt;/b&gt;&lt;hr/&gt;- id: Integer&lt;br/&gt;- patient_id: Integer&lt;br/&gt;- doctor_id: Integer&lt;br/&gt;- appointment_date: Date&lt;br/&gt;- appointment_time: Time&lt;br/&gt;- reason: String&lt;br/&gt;- status: String&lt;br/&gt;- created_at: DateTime&lt;hr/&gt;+ set_state(state)&lt;br/&gt;+ cancel()&lt;br/&gt;+ complete()&lt;br/&gt;+ to_dict()"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="440"
+            y="450"
+            width="300"
+            height="300"
+            as="geometry"/>
+        </mxCell>
+
+        <!-- NOTIFICATION -->
+
+        <mxCell
+          id="Notification"
+          value="&lt;b&gt;Notification&lt;/b&gt;&lt;hr/&gt;- id: Integer&lt;br/&gt;- appointment_id: Integer&lt;br/&gt;- notification_type: String&lt;br/&gt;- channel: String&lt;br/&gt;- sent_at: DateTime&lt;hr/&gt;+ to_dict()"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="800"
+            y="590"
+            width="270"
+            height="210"
+            as="geometry"/>
+        </mxCell>
+
+
+        <!-- SERVICES -->
+
+        <mxCell
+          id="AuthService"
+          value="&lt;b&gt;AuthService&lt;/b&gt;&lt;hr/&gt;+ register_patient(data)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="80"
+            y="790"
+            width="250"
+            height="120"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="AppointmentService"
+          value="&lt;b&gt;AppointmentService&lt;/b&gt;&lt;hr/&gt;+ get_available_slots(doctor_id, date)&lt;br/&gt;+ create_appointment(patient_id, data)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="390"
+            y="810"
+            width="320"
+            height="150"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="NotificationService"
+          value="&lt;b&gt;NotificationService&lt;/b&gt;&lt;hr/&gt;- strategy: NotificationStrategy&lt;hr/&gt;+ set_strategy(strategy)&lt;br/&gt;+ notify(recipient, message)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="790"
+            y="850"
+            width="290"
+            height="170"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="ReminderService"
+          value="&lt;b&gt;ReminderService&lt;/b&gt;&lt;hr/&gt;+ process_reminders()&lt;br/&gt;+ send_reminder(appointment)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="1130"
+            y="850"
+            width="270"
+            height="140"
+            as="geometry"/>
+        </mxCell>
+
+
+        <!-- STRATEGY PATTERN -->
+
+        <mxCell
+          id="NotificationStrategy"
+          value="&lt;b&gt;&amp;lt;&amp;lt;Strategy&amp;gt;&amp;gt;&lt;br/&gt;NotificationStrategy&lt;/b&gt;&lt;hr/&gt;+ send(recipient, message)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="760"
+            y="1080"
+            width="300"
+            height="130"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="EmailStrategy"
+          value="&lt;b&gt;&amp;lt;&amp;lt;ConcreteStrategy&amp;gt;&amp;gt;&lt;br/&gt;EmailNotificationStrategy&lt;/b&gt;&lt;hr/&gt;+ send(recipient, message)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="600"
+            y="1280"
+            width="300"
+            height="130"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="SmsStrategy"
+          value="&lt;b&gt;&amp;lt;&amp;lt;ConcreteStrategy&amp;gt;&amp;gt;&lt;br/&gt;SmsNotificationStrategy&lt;/b&gt;&lt;hr/&gt;+ send(recipient, message)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="950"
+            y="1280"
+            width="300"
+            height="130"
+            as="geometry"/>
+        </mxCell>
+
+
+        <!-- OBSERVER PATTERN -->
+
+        <mxCell
+          id="Observer"
+          value="&lt;b&gt;&amp;lt;&amp;lt;Observer&amp;gt;&amp;gt;&lt;br/&gt;Observer&lt;/b&gt;&lt;hr/&gt;+ update(subject)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="1480"
+            y="780"
+            width="250"
+            height="120"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="RegistrationSubject"
+          value="&lt;b&gt;&amp;lt;&amp;lt;Subject&amp;gt;&amp;gt;&lt;br/&gt;RegistrationSubject&lt;/b&gt;&lt;hr/&gt;- observers: List&lt;hr/&gt;+ attach(observer)&lt;br/&gt;+ detach(observer)&lt;br/&gt;+ notify(patient)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="1400"
+            y="980"
+            width="280"
+            height="190"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="RegistrationObserver"
+          value="&lt;b&gt;&amp;lt;&amp;lt;ConcreteObserver&amp;gt;&amp;gt;&lt;br/&gt;RegistrationNotificationObserver&lt;/b&gt;&lt;hr/&gt;+ update(patient)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="1380"
+            y="1240"
+            width="320"
+            height="125"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="AppointmentSubject"
+          value="&lt;b&gt;&amp;lt;&amp;lt;Subject&amp;gt;&amp;gt;&lt;br/&gt;AppointmentSubject&lt;/b&gt;&lt;hr/&gt;- observers: List&lt;hr/&gt;+ attach(observer)&lt;br/&gt;+ notify(appointment)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="1740"
+            y="980"
+            width="280"
+            height="175"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="AppointmentObserver"
+          value="&lt;b&gt;&amp;lt;&amp;lt;Observer&amp;gt;&amp;gt;&lt;br/&gt;AppointmentObserver&lt;/b&gt;&lt;hr/&gt;+ update(appointment)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="1750"
+            y="780"
+            width="260"
+            height="120"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="AppointmentNotificationObserver"
+          value="&lt;b&gt;&amp;lt;&amp;lt;ConcreteObserver&amp;gt;&amp;gt;&lt;br/&gt;AppointmentNotificationObserver&lt;/b&gt;&lt;hr/&gt;+ update(appointment)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="1730"
+            y="1240"
+            width="330"
+            height="125"
+            as="geometry"/>
+        </mxCell>
+
+
+        <!-- STATE PATTERN -->
+
+        <mxCell
+          id="AppointmentState"
+          value="&lt;b&gt;&amp;lt;&amp;lt;State&amp;gt;&amp;gt;&lt;br/&gt;AppointmentState&lt;/b&gt;&lt;hr/&gt;+ name: String&lt;hr/&gt;+ cancel(appointment)&lt;br/&gt;+ complete(appointment)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="1130"
+            y="170"
+            width="290"
+            height="165"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="ScheduledState"
+          value="&lt;b&gt;&amp;lt;&amp;lt;ConcreteState&amp;gt;&amp;gt;&lt;br/&gt;ScheduledState&lt;/b&gt;&lt;hr/&gt;+ cancel(appointment)&lt;br/&gt;+ complete(appointment)"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="1110"
+            y="410"
+            width="270"
+            height="145"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="CompletedState"
+          value="&lt;b&gt;&amp;lt;&amp;lt;ConcreteState&amp;gt;&amp;gt;&lt;br/&gt;CompletedState&lt;/b&gt;"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="1450"
+            y="410"
+            width="250"
+            height="100"
+            as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="CancelledState"
+          value="&lt;b&gt;&amp;lt;&amp;lt;ConcreteState&amp;gt;&amp;gt;&lt;br/&gt;CancelledState&lt;/b&gt;"
+          style="swimlane;fontStyle=1;align=left;verticalAlign=top;whiteSpace=wrap;html=1;startSize=45;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="1">
+          <mxGeometry
+            x="1450"
+            y="550"
+            width="250"
+            height="100"
+            as="geometry"/>
+        </mxCell>
+
+
+        <!-- DOMAIN RELATIONSHIPS -->
+
+        <!-- User 1 - 0..1 Patient -->
+
+        <mxCell
+          id="r1"
+          value="1           0..1"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="User"
+          target="Patient">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- User 1 - 0..1 Doctor -->
+
+        <mxCell
+          id="r2"
+          value="1           0..1"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="User"
+          target="Doctor">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Specialization to Doctors -->
+
+        <mxCell
+          id="r3"
+          value="1           *"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="Specialization"
+          target="Doctor">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Doctor Schedule -->
+
+        <mxCell
+          id="r4"
+          value="1           *"
+          style="endArrow=diamondThin;endFill=1;html=1;"
+          edge="1"
+          parent="1"
+          source="Doctor"
+          target="Schedule">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Patient Appointments -->
+
+        <mxCell
+          id="r5"
+          value="1           *"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="Patient"
+          target="Appointment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Doctor Appointments -->
+
+        <mxCell
+          id="r6"
+          value="1           *"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="Doctor"
+          target="Appointment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Appointment Notifications -->
+
+        <mxCell
+          id="r7"
+          value="1           *"
+          style="endArrow=diamondThin;endFill=1;html=1;"
+          edge="1"
+          parent="1"
+          source="Appointment"
+          target="Notification">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+
+        <!-- SERVICE DEPENDENCIES -->
+
+        <mxCell
+          id="s1"
+          value="creates"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="AuthService"
+          target="Patient">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="s2"
+          value="creates"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="AppointmentService"
+          target="Appointment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="s3"
+          value="uses"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="AppointmentService"
+          target="Schedule">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="s4"
+          value="creates"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="ReminderService"
+          target="Notification">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="s5"
+          value="uses"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="ReminderService"
+          target="NotificationService">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- STRATEGY RELATIONSHIPS -->
+
+        <mxCell
+          id="st1"
+          value="strategy"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="NotificationService"
+          target="NotificationStrategy">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="st2"
+          value="implements"
+          style="endArrow=block;endFill=0;dashed=1;html=1;"
+          edge="1"
+          parent="1"
+          source="EmailStrategy"
+          target="NotificationStrategy">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="st3"
+          value="implements"
+          style="endArrow=block;endFill=0;dashed=1;html=1;"
+          edge="1"
+          parent="1"
+          source="SmsStrategy"
+          target="NotificationStrategy">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+
+        <!-- OBSERVER RELATIONSHIPS -->
+
+        <mxCell
+          id="o1"
+          value="implements"
+          style="endArrow=block;endFill=0;dashed=1;html=1;"
+          edge="1"
+          parent="1"
+          source="RegistrationObserver"
+          target="Observer">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="o2"
+          value="implements"
+          style="endArrow=block;endFill=0;dashed=1;html=1;"
+          edge="1"
+          parent="1"
+          source="AppointmentNotificationObserver"
+          target="AppointmentObserver">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="o3"
+          value="notifies"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="RegistrationSubject"
+          target="RegistrationObserver">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="o4"
+          value="notifies"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="AppointmentSubject"
+          target="AppointmentNotificationObserver">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="o5"
+          value="uses"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="RegistrationObserver"
+          target="NotificationService">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="o6"
+          value="uses"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="AppointmentNotificationObserver"
+          target="NotificationService">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="o7"
+          value="creates event"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="AuthService"
+          target="RegistrationSubject">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="o8"
+          value="creates event"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="AppointmentService"
+          target="AppointmentSubject">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+
+        <!-- STATE RELATIONSHIPS -->
+
+        <mxCell
+          id="state1"
+          value="uses"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="Appointment"
+          target="AppointmentState">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="state2"
+          value="extends"
+          style="endArrow=block;endFill=0;html=1;"
+          edge="1"
+          parent="1"
+          source="ScheduledState"
+          target="AppointmentState">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="state3"
+          value="extends"
+          style="endArrow=block;endFill=0;html=1;"
+          edge="1"
+          parent="1"
+          source="CompletedState"
+          target="AppointmentState">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="state4"
+          value="extends"
+          style="endArrow=block;endFill=0;html=1;"
+          edge="1"
+          parent="1"
+          source="CancelledState"
+          target="AppointmentState">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="state5"
+          value="cancel()"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="ScheduledState"
+          target="CancelledState">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell
+          id="state6"
+          value="complete()"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="1"
+          source="ScheduledState"
+          target="CompletedState">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

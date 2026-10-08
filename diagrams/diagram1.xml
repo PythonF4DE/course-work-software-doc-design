@@ -1,0 +1,462 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="MedBook Use Cases">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1"
+      tooltips="1" connect="1" arrows="1" fold="1" page="1"
+      pageScale="1" pageWidth="1600" pageHeight="1100"
+      math="0" shadow="0">
+
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- SYSTEM BOUNDARY -->
+        <mxCell id="system"
+          value="MedBook — система онлайн-запису до лікаря"
+          style="swimlane;fontStyle=1;horizontal=1;startSize=35;rounded=0;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="260" y="40" width="1000" height="970" as="geometry"/>
+        </mxCell>
+
+        <!-- PATIENT ACTOR -->
+        <mxCell id="patient"
+          value="Пацієнт"
+          style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="80" y="260" width="60" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- DOCTOR ACTOR -->
+        <mxCell id="doctorActor"
+          value="Лікар"
+          style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1370" y="280" width="60" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- ADMIN ACTOR -->
+        <mxCell id="admin"
+          value="Адміністратор"
+          style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;"
+          vertex="1"
+          parent="1">
+          <mxGeometry x="1360" y="700" width="80" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- PATIENT USE CASES -->
+
+        <mxCell id="register"
+          value="Реєстрація"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="80" y="70" width="190" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="login"
+          value="Вхід у систему"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="80" y="170" width="190" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="viewDoctors"
+          value="Перегляд лікарів"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="80" y="270" width="190" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="filterDoctors"
+          value="Фільтрація за спеціалізацією"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="340" y="270" width="220" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="bookAppointment"
+          value="Онлайн-запис на прийом"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="80" y="380" width="210" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="chooseDateTime"
+          value="Вибір дати та часу"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="350" y="390" width="210" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="viewAppointments"
+          value="Перегляд своїх записів"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="80" y="500" width="210" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cancelAppointment"
+          value="Скасування запису"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="350" y="510" width="210" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="notificationSettings"
+          value="Вибір способу нагадувань"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="80" y="620" width="230" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="receiveReminder"
+          value="Отримання нагадування&#xa;E-mail / SMS"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="350" y="625" width="220" height="80" as="geometry"/>
+        </mxCell>
+
+
+        <!-- DOCTOR USE CASES -->
+
+        <mxCell id="doctorDashboard"
+          value="Перегляд кабінету лікаря"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="680" y="90" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="doctorSchedule"
+          value="Перегляд розкладу"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="680" y="200" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="doctorAppointments"
+          value="Перегляд прийомів"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="680" y="310" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="completeAppointment"
+          value="Завершення прийому"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="680" y="420" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="appointmentHistory"
+          value="Перегляд історії прийомів"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="680" y="530" width="240" height="75" as="geometry"/>
+        </mxCell>
+
+
+        <!-- ADMIN USE CASES -->
+
+        <mxCell id="manageDoctors"
+          value="Керування лікарями"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="680" y="650" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="managePatients"
+          value="Перегляд пацієнтів"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="680" y="750" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="manageSchedule"
+          value="Керування розкладом"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="680" y="850" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="viewReports"
+          value="Перегляд звітів"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="390" y="780" width="210" height="75" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="appointmentsReport"
+          value="Звіт за прийомами"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="120" y="750" width="200" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="doctorLoadReport"
+          value="Завантаженість лікарів"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="120" y="835" width="200" height="65" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="patientsDynamics"
+          value="Динаміка нових пацієнтів"
+          style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1"
+          parent="system">
+          <mxGeometry x="120" y="915" width="210" height="65" as="geometry"/>
+        </mxCell>
+
+
+        <!-- PATIENT ASSOCIATIONS -->
+
+        <mxCell id="e1"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="patient"
+          target="register">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e2"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="patient"
+          target="login">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e3"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="patient"
+          target="viewDoctors">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e4"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="patient"
+          target="bookAppointment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e5"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="patient"
+          target="viewAppointments">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e6"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="patient"
+          target="notificationSettings">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+
+        <!-- DOCTOR ASSOCIATIONS -->
+
+        <mxCell id="e7"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="doctorActor"
+          target="doctorDashboard">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e8"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="doctorActor"
+          target="doctorSchedule">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e9"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="doctorActor"
+          target="doctorAppointments">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e10"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="doctorActor"
+          target="completeAppointment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e11"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="doctorActor"
+          target="appointmentHistory">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+
+        <!-- ADMIN ASSOCIATIONS -->
+
+        <mxCell id="e12"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="admin"
+          target="manageDoctors">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e13"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="admin"
+          target="managePatients">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e14"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="admin"
+          target="manageSchedule">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e15"
+          style="endArrow=none;html=1;"
+          edge="1"
+          parent="1"
+          source="admin"
+          target="viewReports">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+
+        <!-- INCLUDE / EXTEND -->
+
+        <mxCell id="include1"
+          value="&lt;&lt;include&gt;&gt;"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="system"
+          source="viewDoctors"
+          target="filterDoctors">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="include2"
+          value="&lt;&lt;include&gt;&gt;"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="system"
+          source="bookAppointment"
+          target="chooseDateTime">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="extend1"
+          value="&lt;&lt;extend&gt;&gt;"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="system"
+          source="cancelAppointment"
+          target="viewAppointments">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="include3"
+          value="&lt;&lt;include&gt;&gt;"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="system"
+          source="notificationSettings"
+          target="receiveReminder">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="extend2"
+          value="&lt;&lt;extend&gt;&gt;"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="system"
+          source="completeAppointment"
+          target="doctorAppointments">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="include4"
+          value="&lt;&lt;include&gt;&gt;"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="system"
+          source="viewReports"
+          target="appointmentsReport">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="include5"
+          value="&lt;&lt;include&gt;&gt;"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="system"
+          source="viewReports"
+          target="doctorLoadReport">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="include6"
+          value="&lt;&lt;include&gt;&gt;"
+          style="dashed=1;endArrow=open;html=1;"
+          edge="1"
+          parent="system"
+          source="viewReports"
+          target="patientsDynamics">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

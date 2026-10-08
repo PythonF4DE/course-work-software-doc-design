@@ -25,5 +25,5 @@ variable "db_port" {
 variable "db_instance_class" {
   description = "RDS instance type"
   type        = string
-  default     = "db.t4g.micro"
+  default     = "db.t3.micro"
 }
