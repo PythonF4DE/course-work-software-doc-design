@@ -18,6 +18,9 @@ const appointments = ref([])
 const loadingAppointments = ref(true)
 const errorMessage = ref("")
 
+const notificationMethod = ref("email")
+const savingNotificationMethod = ref(false)
+
 
 const fullName = computed(() => {
   return (
@@ -92,6 +95,35 @@ async function cancelAppointment(
 }
 
 
+async function saveNotificationMethod() {
+  savingNotificationMethod.value = true
+  errorMessage.value = ""
+
+  try {
+    await api.patch(
+      "/auth/notification-method",
+      {
+        notification_method:
+          notificationMethod.value
+      }
+    )
+
+    if (authStore.patient) {
+      authStore.patient.notification_method =
+        notificationMethod.value
+    }
+
+  } catch (error) {
+    errorMessage.value =
+      error.response?.data?.error ||
+      "Не вдалося змінити спосіб нагадувань."
+
+  } finally {
+    savingNotificationMethod.value = false
+  }
+}
+
+
 function formatDate(dateString) {
   const date = new Date(
     `${dateString}T00:00:00`
@@ -121,6 +153,11 @@ function getStatusText(status) {
 
 onMounted(async () => {
   await authStore.loadCurrentUser()
+
+  notificationMethod.value =
+    authStore.patient?.notification_method ||
+    "email"
+
   await loadAppointments()
 })
 </script>
@@ -202,7 +239,76 @@ onMounted(async () => {
         </article>
 
 
-        <!-- Активні записи -->
+        <article class="dashboard-card">
+          <h2>
+            Нагадування
+          </h2>
+
+          <p class="muted">
+            Оберіть спосіб отримання нагадувань
+            про майбутні прийоми.
+          </p>
+
+
+          <div class="notification-options">
+
+            <label class="notification-option">
+              <input
+                v-model="notificationMethod"
+                type="radio"
+                value="email"
+              >
+
+              <div>
+                <strong>
+                  E-mail
+                </strong>
+
+                <p>
+                  {{
+                    authStore.patient?.email
+                  }}
+                </p>
+              </div>
+            </label>
+
+
+            <label class="notification-option">
+              <input
+                v-model="notificationMethod"
+                type="radio"
+                value="sms"
+              >
+
+              <div>
+                <strong>
+                  SMS
+                </strong>
+
+                <p>
+                  {{
+                    authStore.patient?.phone
+                  }}
+                </p>
+              </div>
+            </label>
+
+          </div>
+
+
+          <button
+            class="button"
+            :disabled="savingNotificationMethod"
+            @click="saveNotificationMethod"
+          >
+            {{
+              savingNotificationMethod
+                ? "Збереження..."
+                : "Зберегти"
+            }}
+          </button>
+        </article>
+
 
         <article class="dashboard-card">
 
@@ -251,33 +357,29 @@ onMounted(async () => {
                 in activeAppointments
               "
               :key="appointment.id"
-              class="appointment-item">
+              class="appointment-item"
+            >
 
-              <div
-                class="appointment-main">
+              <div class="appointment-main">
 
-                <div
-                  class="appointment-date">
+                <div class="appointment-date">
                   <strong>
                     {{
                       formatDate(
-                        appointment
-                          .appointment_date
+                        appointment.appointment_date
                       )
                     }}
                   </strong>
 
                   <span>
                     {{
-                      appointment
-                        .appointment_time
+                      appointment.appointment_time
                     }}
                   </span>
                 </div>
 
 
-                <div
-                  class="appointment-info">
+                <div class="appointment-info">
 
                   <h3>
                     {{
@@ -287,8 +389,7 @@ onMounted(async () => {
                     }}
                   </h3>
 
-                  <p
-                    class="specialization">
+                  <p class="specialization">
                     {{
                       appointment
                         .doctor
@@ -298,8 +399,8 @@ onMounted(async () => {
                   </p>
 
                   <p
-                    v-if="
-                      appointment.reason">
+                    v-if="appointment.reason"
+                  >
                     <strong>
                       Причина:
                     </strong>
@@ -314,13 +415,14 @@ onMounted(async () => {
               </div>
 
 
-              <div
-                class="appointment-footer">
+              <div class="appointment-footer">
 
                 <span
                   class="
                     appointment-status
-                    status-scheduled">
+                    status-scheduled
+                  "
+                >
                   {{
                     getStatusText(
                       appointment.status
@@ -333,11 +435,14 @@ onMounted(async () => {
                   class="
                     button
                     button-danger
-                    button-small"
+                    button-small
+                  "
                   @click="
                     cancelAppointment(
                       appointment.id
-                    )">
+                    )
+                  "
+                >
                   Скасувати
                 </button>
 
@@ -351,56 +456,59 @@ onMounted(async () => {
 
       </div>
 
+
       <article
         v-if="
           !loadingAppointments &&
-          finishedAppointments.length > 0"
+          finishedAppointments.length > 0
+        "
         class="
           dashboard-card
-          appointments-history">
+          appointments-history
+        "
+      >
 
         <h2>
           Історія записів
         </h2>
+
 
         <div class="appointment-list">
 
           <article
             v-for="
               appointment
-              in finishedAppointments"
+              in finishedAppointments
+            "
             :key="appointment.id"
             class="
               appointment-item
-              appointment-finished">
+              appointment-finished
+            "
+          >
 
-            <div
-              class="appointment-main">
+            <div class="appointment-main">
 
-              <div
-                class="appointment-date">
+              <div class="appointment-date">
 
                 <strong>
                   {{
                     formatDate(
-                      appointment
-                        .appointment_date
+                      appointment.appointment_date
                     )
                   }}
                 </strong>
 
                 <span>
                   {{
-                    appointment
-                      .appointment_time
+                    appointment.appointment_time
                   }}
                 </span>
 
               </div>
 
 
-              <div
-                class="appointment-info">
+              <div class="appointment-info">
 
                 <h3>
                   {{
@@ -419,6 +527,18 @@ onMounted(async () => {
                   }}
                 </p>
 
+                <p
+                  v-if="appointment.reason"
+                >
+                  <strong>
+                    Причина:
+                  </strong>
+
+                  {{
+                    appointment.reason
+                  }}
+                </p>
+
               </div>
 
             </div>
@@ -427,7 +547,9 @@ onMounted(async () => {
             <span
               class="appointment-status"
               :class="
-                `status-${appointment.status}`">
+                `status-${appointment.status}`
+              "
+            >
               {{
                 getStatusText(
                   appointment.status

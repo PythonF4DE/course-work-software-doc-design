@@ -776,3 +776,57 @@
       flex-direction: column;
     }
   }
+
+  .notification-options {
+    display: flex;
+    flex-direction: column;
+  
+    gap: 12px;
+  
+    margin: 20px 0;
+  }
+  
+  
+  .notification-option {
+    display: flex;
+    align-items: flex-start;
+  
+    gap: 14px;
+  
+    padding: 16px;
+  
+    background: #f8fafc;
+  
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+  
+    cursor: pointer;
+  }
+  
+  
+  .notification-option:has(
+    input:checked
+  ) {
+    background: #eef8fb;
+  
+    border-color: #176b87;
+  }
+  
+  
+  .notification-option input {
+    margin-top: 4px;
+  }
+  
+  
+  .notification-option strong {
+    display: block;
+  
+    margin-bottom: 3px;
+  }
+  
+  
+  .notification-option p {
+    margin: 0;
+  
+    color: #64748b;
+  }

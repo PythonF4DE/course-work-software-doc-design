@@ -7,7 +7,7 @@ from flask_jwt_extended import (
 
 from app.models.user import User
 from app.services.auth_service import AuthService
-
+from app.extensions import db
 
 auth_bp = Blueprint(
     "auth",
@@ -133,4 +133,65 @@ def me():
             if user.patient
             else None
         )
+    }
+
+@auth_bp.patch(
+    "/notification-method"
+)
+@jwt_required()
+def change_notification_method():
+
+    user_id = int(
+        get_jwt_identity()
+    )
+
+    user = db.session.get(
+        User,
+        user_id
+    )
+
+
+    if (
+        not user
+        or not user.patient
+    ):
+        return {
+            "error":
+                "Пацієнта не знайдено."
+        }, 404
+
+
+    data = request.get_json(
+        silent=True
+    ) or {}
+
+
+    method = data.get(
+        "notification_method"
+    )
+
+
+    if method not in [
+        "email",
+        "sms"
+    ]:
+        return {
+            "error":
+                "Допустимі значення: email або sms."
+        }, 400
+
+
+    user.patient.notification_method = (
+        method
+    )
+
+    db.session.commit()
+
+
+    return {
+        "message":
+            "Спосіб нагадувань змінено.",
+
+        "notification_method":
+            method
     }

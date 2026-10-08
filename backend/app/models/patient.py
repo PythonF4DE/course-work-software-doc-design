@@ -45,6 +45,12 @@ class Patient(db.Model):
         nullable=False
     )
 
+    notification_method = db.Column(
+        db.String(20),
+        nullable=False,
+        default="email"
+    )
+
     user = db.relationship(
         "User",
         back_populates="patient"
@@ -76,5 +82,6 @@ class Patient(db.Model):
             "full_name": self.get_full_name(),
             "phone": self.phone,
             "birth_date": self.birth_date.isoformat(),
-            "email": self.user.email
+            "email": self.user.email,
+            "notification_method": self.notification_method,
         }

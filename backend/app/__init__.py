@@ -27,6 +27,8 @@ def create_app():
         appointments_bp
     )
 
+    from app.scheduler import start_scheduler
+
     app.register_blueprint(
         appointments_bp,
         url_prefix="/api/appointments"
@@ -48,5 +50,7 @@ def create_app():
             "status": "ok",
             "message": "Doctor Appointment API is running"
         }
+
+    start_scheduler(app)
 
     return app

@@ -4,7 +4,7 @@ from app.models.doctor import Doctor
 from app.models.specialization import Specialization
 from app.models.schedule import Schedule
 from app.models.appointment import Appointment
-
+from app.models.notification import Notification
 
 __all__ = [
     "User",
@@ -12,5 +12,6 @@ __all__ = [
     "Doctor",
     "Specialization",
     "Schedule",
-    "Appointment"
+    "Appointment",
+    "Notification"
 ]

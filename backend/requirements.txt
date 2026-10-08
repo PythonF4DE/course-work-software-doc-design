@@ -7,3 +7,5 @@ psycopg[binary]
 python-dotenv
 Werkzeug
 email-validator
+APScheduler
+twilio
