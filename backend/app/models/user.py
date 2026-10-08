@@ -47,6 +47,12 @@ class User(db.Model):
         cascade="all, delete-orphan"
     )
 
+    doctor = db.relationship(
+        "Doctor",
+        back_populates="user",
+        uselist=False
+    )
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(
             password

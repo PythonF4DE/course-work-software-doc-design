@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import api from "../services/api"
+import api from "../services/api.js"
 
 
 export const useAuthStore = defineStore(
@@ -8,6 +8,8 @@ export const useAuthStore = defineStore(
     state: () => ({
       user: null,
       patient: null,
+      doctor: null,
+
       token: localStorage.getItem(
         "access_token"
       )
@@ -52,8 +54,21 @@ export const useAuthStore = defineStore(
             "/auth/me"
           )
 
-          this.user = response.data.user
-          this.patient = response.data.patient
+          this.user =
+            response.data.user
+
+          this.patient =
+            response.data.patient
+
+          this.doctor =
+            response.data.doctor
+
+          if (this.user?.role) {
+            localStorage.setItem(
+              "user_role",
+              this.user.role
+            )
+          }
 
         } catch {
           this.logout()
@@ -61,23 +76,43 @@ export const useAuthStore = defineStore(
       },
 
       setAuth(data) {
-        this.token = data.access_token
-        this.user = data.user
-        this.patient = data.patient
+        this.token =
+          data.access_token
+
+        this.user =
+          data.user
+
+        this.patient =
+          data.patient
+
+        this.doctor =
+          data.doctor
 
         localStorage.setItem(
           "access_token",
           data.access_token
         )
+
+        if (data.user?.role) {
+          localStorage.setItem(
+            "user_role",
+            data.user.role
+          )
+        }
       },
 
       logout() {
         this.token = null
         this.user = null
         this.patient = null
+        this.doctor = null
 
         localStorage.removeItem(
           "access_token"
+        )
+
+        localStorage.removeItem(
+          "user_role"
         )
       }
     }

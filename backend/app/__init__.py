@@ -27,7 +27,23 @@ def create_app():
         appointments_bp
     )
 
+    from app.routes.doctor_dashboard import (
+        doctor_dashboard_bp
+    )
+
     from app.scheduler import start_scheduler
+
+    from app.routes.admin import admin_bp
+
+    app.register_blueprint(
+        admin_bp,
+        url_prefix="/api/admin"
+    )
+
+    app.register_blueprint(
+        doctor_dashboard_bp,
+        url_prefix="/api/doctor"
+    )
 
     app.register_blueprint(
         appointments_bp,

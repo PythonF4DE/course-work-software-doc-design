@@ -46,8 +46,33 @@ function logout() {
         </template>
 
         <template v-else>
-          <RouterLink to="/dashboard">
+          <RouterLink
+            v-if="
+              authStore.user?.role === 'patient'
+            "
+            to="/dashboard"
+          >
             Кабінет
+          </RouterLink>
+
+
+          <RouterLink
+            v-if="
+              authStore.user?.role === 'doctor'
+            "
+            to="/doctor"
+          >
+            Кабінет лікаря
+          </RouterLink>
+
+
+          <RouterLink
+            v-if="
+              authStore.user?.role === 'admin'
+            "
+            to="/admin"
+          >
+            Адмін-панель
           </RouterLink>
 
           <button

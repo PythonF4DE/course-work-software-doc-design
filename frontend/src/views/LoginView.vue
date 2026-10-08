@@ -2,7 +2,7 @@
 import { reactive, ref } from "vue"
 import { useRouter } from "vue-router"
 
-import { useAuthStore } from "../stores/auth"
+import { useAuthStore } from "../stores/auth.js"
 
 
 const router = useRouter()
@@ -25,7 +25,26 @@ async function submitLogin() {
   try {
     await authStore.login(form)
 
-    router.push("/dashboard")
+    const role =
+      authStore.user?.role
+
+    if (role === "admin") {
+      await router.push(
+        "/admin"
+      )
+
+    } else if (
+      role === "doctor"
+    ) {
+      await router.push(
+        "/doctor"
+      )
+
+    } else {
+      await router.push(
+        "/dashboard"
+      )
+    }
 
   } catch (error) {
     errorMessage.value =
@@ -52,7 +71,7 @@ async function submitLogin() {
         </h1>
 
         <p>
-          Увійдіть у свій кабінет пацієнта.
+          Увійдіть у свій кабінет.
         </p>
       </div>
 
@@ -65,6 +84,7 @@ async function submitLogin() {
       <form
         class="form"
         @submit.prevent="submitLogin">
+
         <div class="form-group">
           <label for="email">
             E-mail
@@ -107,6 +127,7 @@ async function submitLogin() {
             Зареєструватися
           </RouterLink>
         </p>
+
       </form>
     </div>
   </section>

@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+
 from flask_jwt_extended import (
     create_access_token,
     jwt_required,
@@ -8,6 +9,7 @@ from flask_jwt_extended import (
 from app.models.user import User
 from app.services.auth_service import AuthService
 from app.extensions import db
+
 
 auth_bp = Blueprint(
     "auth",
@@ -39,7 +41,8 @@ def register():
             ),
             "access_token": access_token,
             "user": user.to_dict(),
-            "patient": patient.to_dict()
+            "patient": patient.to_dict(),
+            "doctor": None
         }, 201
 
     except ValueError as error:
@@ -84,8 +87,11 @@ def login():
         email=email
     ).first()
 
-    if not user or not user.check_password(
-        password
+    if (
+        not user
+        or not user.check_password(
+            password
+        )
     ):
         return {
             "error": (
@@ -104,9 +110,16 @@ def login():
         "message": "Вхід виконано успішно.",
         "access_token": access_token,
         "user": user.to_dict(),
+
         "patient": (
             user.patient.to_dict()
             if user.patient
+            else None
+        ),
+
+        "doctor": (
+            user.doctor.to_dict()
+            if user.doctor
             else None
         )
     }
@@ -117,23 +130,34 @@ def login():
 def me():
     user_id = get_jwt_identity()
 
-    user = User.query.get(
+    user = db.session.get(
+        User,
         int(user_id)
     )
 
     if not user:
         return {
-            "error": "Користувача не знайдено."
+            "error": (
+                "Користувача не знайдено."
+            )
         }, 404
 
     return {
         "user": user.to_dict(),
+
         "patient": (
             user.patient.to_dict()
             if user.patient
             else None
+        ),
+
+        "doctor": (
+            user.doctor.to_dict()
+            if user.doctor
+            else None
         )
     }
+
 
 @auth_bp.patch(
     "/notification-method"
@@ -150,7 +174,6 @@ def change_notification_method():
         user_id
     )
 
-
     if (
         not user
         or not user.patient
@@ -160,16 +183,13 @@ def change_notification_method():
                 "Пацієнта не знайдено."
         }, 404
 
-
     data = request.get_json(
         silent=True
     ) or {}
 
-
     method = data.get(
         "notification_method"
     )
-
 
     if method not in [
         "email",
@@ -180,13 +200,11 @@ def change_notification_method():
                 "Допустимі значення: email або sms."
         }, 400
 
-
     user.patient.notification_method = (
         method
     )
 
     db.session.commit()
-
 
     return {
         "message":

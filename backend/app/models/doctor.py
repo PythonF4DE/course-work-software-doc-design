@@ -30,6 +30,21 @@ class Doctor(db.Model):
         nullable=False
     )
 
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey(
+            "users.id",
+            ondelete="CASCADE"
+        ),
+        nullable=True,
+        unique=True
+    )
+
+    user = db.relationship(
+        "User",
+        back_populates="doctor"
+    )
+
     specialization = db.relationship(
         "Specialization",
         back_populates="doctors"
