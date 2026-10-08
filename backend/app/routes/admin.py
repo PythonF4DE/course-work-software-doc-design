@@ -1,4 +1,5 @@
-from datetime import datetime
+from datetime import datetime, date
+from sqlalchemy import func
 
 from flask import (
     Blueprint,
@@ -14,6 +15,7 @@ from app.models.specialization import (
     Specialization
 )
 from app.models.schedule import Schedule
+from app.models.appointment import Appointment
 
 from app.utils.roles import role_required
 
@@ -379,4 +381,250 @@ def admin_delete_schedule(
     return {
         "message":
             "Розклад видалено."
+    }
+
+@admin_bp.get(
+    "/reports/appointments"
+)
+@role_required("admin")
+def report_appointments():
+
+    today = date.today()
+
+    appointments_today = (
+        db.session.query(
+            func.count(
+                Appointment.id
+            )
+        )
+        .filter(
+            Appointment.appointment_date
+            == today
+        )
+        .scalar()
+    )
+
+
+    current_year = today.year
+    current_month = today.month
+
+
+    appointments_month = (
+        db.session.query(
+            func.count(
+                Appointment.id
+            )
+        )
+        .filter(
+            func.extract(
+                "year",
+                Appointment.appointment_date
+            ) == current_year
+        )
+        .filter(
+            func.extract(
+                "month",
+                Appointment.appointment_date
+            ) == current_month
+        )
+        .scalar()
+    )
+
+
+    appointments_by_doctor = (
+        db.session.query(
+            Doctor.id,
+            Doctor.first_name,
+            Doctor.last_name,
+            func.count(
+                Appointment.id
+            ).label(
+                "appointment_count"
+            )
+        )
+        .outerjoin(
+            Appointment,
+            Appointment.doctor_id
+            == Doctor.id
+        )
+        .group_by(
+            Doctor.id,
+            Doctor.first_name,
+            Doctor.last_name
+        )
+        .order_by(
+            func.count(
+                Appointment.id
+            ).desc()
+        )
+        .all()
+    )
+
+
+    return {
+        "today": appointments_today,
+        "month": appointments_month,
+
+        "by_doctor": [
+            {
+                "doctor_id":
+                    doctor_id,
+
+                "doctor_name":
+                    f"{first_name} {last_name}",
+
+                "appointment_count":
+                    appointment_count
+            }
+
+            for (
+                doctor_id,
+                first_name,
+                last_name,
+                appointment_count
+            ) in appointments_by_doctor
+        ]
+    }
+
+@admin_bp.get(
+    "/reports/doctor-load"
+)
+@role_required("admin")
+def report_doctor_load():
+
+    doctors = Doctor.query.all()
+
+    result = []
+
+
+    for doctor in doctors:
+
+        total_appointments = (
+            Appointment.query
+            .filter_by(
+                doctor_id=doctor.id
+            )
+            .count()
+        )
+
+
+        scheduled = (
+            Appointment.query
+            .filter_by(
+                doctor_id=doctor.id,
+                status="scheduled"
+            )
+            .count()
+        )
+
+
+        completed = (
+            Appointment.query
+            .filter_by(
+                doctor_id=doctor.id,
+                status="completed"
+            )
+            .count()
+        )
+
+
+        cancelled = (
+            Appointment.query
+            .filter_by(
+                doctor_id=doctor.id,
+                status="cancelled"
+            )
+            .count()
+        )
+
+
+        result.append({
+            "doctor_id":
+                doctor.id,
+
+            "doctor_name":
+                doctor.get_full_name(),
+
+            "total":
+                total_appointments,
+
+            "scheduled":
+                scheduled,
+
+            "completed":
+                completed,
+
+            "cancelled":
+                cancelled
+        })
+
+
+    result.sort(
+        key=lambda item:
+            item["total"],
+        reverse=True
+    )
+
+
+    return {
+        "doctor_load": result
+    }
+
+@admin_bp.get(
+    "/reports/new-patients"
+)
+@role_required("admin")
+def report_new_patients():
+
+    rows = (
+        db.session.query(
+            func.date(
+                User.created_at
+            ).label(
+                "registration_date"
+            ),
+
+            func.count(
+                Patient.id
+            ).label(
+                "patient_count"
+            )
+        )
+        .join(
+            Patient,
+            Patient.user_id
+            == User.id
+        )
+        .filter(
+            User.role == "patient"
+        )
+        .group_by(
+            func.date(
+                User.created_at
+            )
+        )
+        .order_by(
+            func.date(
+                User.created_at
+            )
+        )
+        .all()
+    )
+
+
+    return {
+        "new_patients": [
+            {
+                "date":
+                    registration_date.isoformat(),
+
+                "count":
+                    patient_count
+            }
+
+            for (
+                registration_date,
+                patient_count
+            ) in rows
+        ]
     }

@@ -13,6 +13,16 @@ const patients = ref([])
 const schedule = ref([])
 const specializations = ref([])
 
+const appointmentReport = ref({
+  today: 0,
+  month: 0,
+  by_doctor: []
+})
+
+const doctorLoadReport = ref([])
+
+const newPatientsReport = ref([])
+
 const errorMessage = ref("")
 
 
@@ -42,7 +52,10 @@ async function loadData() {
       doctorsResponse,
       patientsResponse,
       scheduleResponse,
-      specializationResponse
+      specializationResponse,
+      appointmentReportResponse,
+      doctorLoadResponse,
+      newPatientsResponse
     ] = await Promise.all([
 
       api.get(
@@ -59,6 +72,18 @@ async function loadData() {
 
       api.get(
         "/admin/specializations"
+      ),
+
+      api.get(
+        "/admin/reports/appointments"
+      ),
+
+      api.get(
+        "/admin/reports/doctor-load"
+      ),
+
+      api.get(
+        "/admin/reports/new-patients"
       )
 
     ])
@@ -84,6 +109,18 @@ async function loadData() {
         .data
         .specializations
 
+    appointmentReport.value =
+      appointmentReportResponse.data
+
+    doctorLoadReport.value =
+      doctorLoadResponse
+        .data
+        .doctor_load
+
+    newPatientsReport.value =
+      newPatientsResponse
+        .data
+        .new_patients
 
   } catch (error) {
 
@@ -222,7 +259,6 @@ onMounted(
         Кабінет адміністратора
       </h1>
 
-
       <div
         v-if="errorMessage"
         class="alert alert-error"
@@ -230,6 +266,296 @@ onMounted(
         {{ errorMessage }}
       </div>
 
+      <section class="admin-reports">
+
+        <h2>
+          Звіти
+        </h2>
+
+
+        <div class="report-cards">
+
+          <article class="report-card">
+
+            <span class="report-label">
+              Прийомів сьогодні
+            </span>
+
+            <strong class="report-number">
+              {{
+                appointmentReport.today
+              }}
+            </strong>
+
+          </article>
+
+
+          <article class="report-card">
+
+            <span class="report-label">
+              Прийомів цього місяця
+            </span>
+
+            <strong class="report-number">
+              {{
+                appointmentReport.month
+              }}
+            </strong>
+
+          </article>
+
+
+          <article class="report-card">
+
+            <span class="report-label">
+              Всього лікарів
+            </span>
+
+            <strong class="report-number">
+              {{ doctors.length }}
+            </strong>
+
+          </article>
+
+
+          <article class="report-card">
+
+            <span class="report-label">
+              Всього пацієнтів
+            </span>
+
+            <strong class="report-number">
+              {{ patients.length }}
+            </strong>
+
+          </article>
+
+        </div>
+
+
+        <article
+          class="
+            dashboard-card
+            admin-section
+          "
+        >
+
+          <h2>
+            Кількість прийомів
+            за лікарями
+          </h2>
+
+
+          <div class="admin-table-wrapper">
+
+            <table class="admin-table">
+
+              <thead>
+
+                <tr>
+                  <th>
+                    Лікар
+                  </th>
+
+                  <th>
+                    Кількість прийомів
+                  </th>
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                <tr
+                  v-for="
+                    item
+                    in appointmentReport.by_doctor
+                  "
+                  :key="item.doctor_id"
+                >
+
+                  <td>
+                    {{
+                      item.doctor_name
+                    }}
+                  </td>
+
+                  <td>
+                    {{
+                      item.appointment_count
+                    }}
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
+
+        <article
+          class="
+            dashboard-card
+            admin-section
+          "
+        >
+
+          <h2>
+            Завантаженість лікарів
+          </h2>
+
+
+          <div class="admin-table-wrapper">
+
+            <table class="admin-table">
+
+              <thead>
+
+                <tr>
+                  <th>
+                    Лікар
+                  </th>
+
+                  <th>
+                    Всього
+                  </th>
+
+                  <th>
+                    Заплановано
+                  </th>
+
+                  <th>
+                    Завершено
+                  </th>
+
+                  <th>
+                    Скасовано
+                  </th>
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                <tr
+                  v-for="
+                    item
+                    in doctorLoadReport
+                  "
+                  :key="item.doctor_id"
+                >
+
+                  <td>
+                    {{
+                      item.doctor_name
+                    }}
+                  </td>
+
+                  <td>
+                    {{
+                      item.total
+                    }}
+                  </td>
+
+                  <td>
+                    {{
+                      item.scheduled
+                    }}
+                  </td>
+
+                  <td>
+                    {{
+                      item.completed
+                    }}
+                  </td>
+
+                  <td>
+                    {{
+                      item.cancelled
+                    }}
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
+
+        <article
+          class="
+            dashboard-card
+            admin-section
+          "
+        >
+
+          <h2>
+            Динаміка нових пацієнтів
+          </h2>
+
+
+          <div class="admin-table-wrapper">
+
+            <table class="admin-table">
+
+              <thead>
+
+                <tr>
+                  <th>
+                    Дата
+                  </th>
+
+                  <th>
+                    Нових пацієнтів
+                  </th>
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                <tr
+                  v-for="
+                    item
+                    in newPatientsReport
+                  "
+                  :key="item.date"
+                >
+
+                  <td>
+                    {{
+                      item.date
+                    }}
+                  </td>
+
+                  <td>
+                    {{
+                      item.count
+                    }}
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </article>
+
+      </section>
 
       <article class="dashboard-card">
 
