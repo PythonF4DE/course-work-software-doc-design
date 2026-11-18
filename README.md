@@ -1,13 +1,13 @@
-# Цей проект це курсова робота з "Документування програмного забезпечення та шаблони проектування"
+# This project is a course project for "Software Documentation and Design Patterns"
 
-## Структура проекту
+## Project Structure
 
-Проект складається з двох основних частин:
+The project consists of two main parts:
 
-* `backend/` — серверна частина на Python Flask. Відповідає за REST API, авторизацію, роботу з користувачами, лікарями, записами, нагадуваннями, звітами та взаємодію з PostgreSQL.
-* `frontend/` — клієнтська частина на Vue.js. Відповідає за користувацький інтерфейс для пацієнтів, лікарів і адміністратора.
+* `backend/` — the server-side application built with Python Flask. Responsible for the REST API, authentication, managing users, doctors, appointments, reminders, reports and interaction with PostgreSQL.
+* `frontend/` — the client-side application built with Vue.js. Responsible for the user interface for patients, doctors and administrators.
 
-Основна структура:
+Main structure:
 
 ```text
 backend/
@@ -36,71 +36,72 @@ frontend/
 └── vite.config.js
 ```
 
-У проекті використовуються три шаблони проектування:
-* Strategy — для вибору способу надсилання нагадувань через e-mail або SMS.
-* Observer — для реакції системи на події реєстрації та створення записів.
-* State — для керування станами запису до лікаря (scheduled, completed, cancelled).
+The project uses three design patterns:
+* Strategy — for selecting the method of sending reminders via email or SMS.
+* Observer — for reacting to registration and appointment creation events.
+* State — for managing appointment states (scheduled, completed, cancelled).
 
-## Попередні вимоги
-* Мати завантажений python 3
-* Мати завантажений Vue.js
-* Мати завантажений Terraform
-* Мати завантажений AWS CLI
-* Мати AWS акаунт та залогіниись в нього через AWS CLI
+## Prerequisites
+* Have Python 3 installed
+* Have Vue.js installed
+* Have Terraform installed
+* Have AWS CLI installed
+* Have an AWS account and be logged into it through AWS CLI
 
-## Як запустити?
-* `cd <папка куди Ви зберегли цей репозиторій>/terraform`
+## How to Run?
+* `cd <path to the folder where you saved this repository>/terraform`
 * `terraform init`
 * `terraform apply --auto-approve`
-* У вашому AWS окрім RDS створиться secret `doctor-appointment-system/postgres`, пізніше Ви братимите з нього значення.
-* Створіть файл `<шлях до папки, де Ви зберегли проект>/backend/.env`
-* Додайте до нього потрібні зміни (дивіться нижче)
-* `cd <папка куди Ви зберегли цей репозиторій>/backend`
+* In your AWS account, in addition to RDS, a secret named `doctor-appointment-system/postgres` will be created. You will retrieve values from it later.
+* Create the file `<path to the folder where you saved the project>/backend/.env`
+* Add the required changes to it (see below)
+* `cd <path to the folder where you saved this repository>/backend`
 * `pip install -r requirements.txt`
 * `flask --app run.py db init`
 * `flask --app run.py db migrate -m "Initial migration"`
 * `flask --app run.py db upgrade`
 * `python seed.py`
 * `python run.py`
-* Створіть файл `<шлях до папки, де Ви зберегли проект>/frontend/.env`
-* Додайте до нього потрібні зміни (дивіться нижче)
-* Відкрийте нове вікно у терміналі (залиште поперднє вікно відкритим)
-* `cd <папка куди Ви зберегли цей репозиторій>/frontend`
+* Create the file `<path to the folder where you saved the project>/frontend/.env`
+* Add the required changes to it (see below)
+* Open a new terminal window (keep the previous window open)
+* `cd <path to the folder where you saved this repository>/frontend`
 * `npm install`
 * `npm run dev`
-* Відкрийте браузер, зайдіть на `http://localhost:5173` і це все.
-* Примітка: щоб зайти як пацієнт - зареєструйте нового користувача і зайдіть з нього. Щоб зайти як лікар використайте лікаря, який створений як приклад (email: `doctor1@medbook.com`, password: `Doctor123!`). Щоб зайти як адміністратор використайте email: `admin@medbook.com`, password: `Admin123!`.
+* Open your browser, go to `http://localhost:5173` and that's it.
+* Note: To log in as a patient, register a new user and log in with that account. To log in as a doctor, use the example doctor account (email: `doctor1@medbook.com`, password: `Doctor123!`). To log in as an administrator, use email: `admin@medbook.com`, password: `Admin123!`.
 
-## Які змінні додати в `frontend/.env`?
-* Тут потрібна всього одна змінна:
-`VITE_API_URL=<посилання на місце де запущенний backend>`
+## What Variables Should Be Added to `frontend/.env`?
+* Only one variable is required here:
+`VITE_API_URL=<URL where the backend is running>`
 
-## Які змінні додати в `backend/.env`?
-* Тут потрібно більше змін:
-```
-FLASK_ENV=development - опціонально
-FLASK_DEBUG=true - опціонально
+## What Variables Should Be Added to `backend/.env`?
+* More variables are required here:
 
-SECRET_KEY=<Ваш Secret Key>
-JWT_SECRET_KEY=<Ваш JWT Secret Key>
+```env
+FLASK_ENV=development - optional
+FLASK_DEBUG=true - optional
 
-DB_HOST=<посилання на Вашу БД в AWS (host)>
-DB_PORT=<порт Вашої бази даних в AWS (port)>
-DB_NAME=<назва Вашої бази даних в AWS (database)>
-DB_USER=<Ваш юзернейм для БД в AWS (username)>
-DB_PASSWORD=<пароль від Вашої бази даних в AWS (password)>
+SECRET_KEY=<Your Secret Key>
+JWT_SECRET_KEY=<Your JWT Secret Key>
 
-FRONTEND_URL=<посилання на те де запущений frontend>
+DB_HOST=<URL of your database in AWS (host)>
+DB_PORT=<port of your database in AWS (port)>
+DB_NAME=<name of your database in AWS (database)>
+DB_USER=<your database username in AWS (username)>
+DB_PASSWORD=<password of your database in AWS (password)>
 
-REMINDER_HOURS_BEFORE=<кількість годин перед нагадуванням (0 - миттєво)>
+FRONTEND_URL=<URL where the frontend is running>
 
-SMTP_HOST=<URL для SMTP>
-SMTP_PORT=<порт для SMTP>
-SMTP_USER=(користувач для SMTP)
-SMTP_PASSWORD=(пароль для SMTP)
-SMTP_FROM=(пошта, з якої надходитимуть листи)
+REMINDER_HOURS_BEFORE=<number of hours before the reminder (0 - immediately)>
 
-TWILIO_ACCOUNT_SID=<SID Twilio для Twilio>
-TWILIO_AUTH_TOKEN=<Auth Token для Twilio>
-TWILIO_PHONE_NUMBER=<номер телефону для Twilio>
+SMTP_HOST=<SMTP URL>
+SMTP_PORT=<SMTP port>
+SMTP_USER=(SMTP username)
+SMTP_PASSWORD=(SMTP password)
+SMTP_FROM=(email address from which messages will be sent)
+
+TWILIO_ACCOUNT_SID=<Twilio SID for Twilio>
+TWILIO_AUTH_TOKEN=<Auth Token for Twilio>
+TWILIO_PHONE_NUMBER=<phone number for Twilio>
 ```
